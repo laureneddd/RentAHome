@@ -27,6 +27,4 @@ public class Reservation {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    private double price;
-    private int numbOfPeople;
 }

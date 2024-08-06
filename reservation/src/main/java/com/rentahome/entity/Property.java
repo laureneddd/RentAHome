@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +16,7 @@ import java.util.Set;
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int propertyId;
+    private Integer propertyId;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
@@ -33,12 +33,13 @@ public class Property {
     private String Address;
     private String propertyType;
 
-    @Temporal(TemporalType.DATE)
-    private Date availableStartDate;
-
-    @Temporal(TemporalType.DATE)
-    private Date availableEndDate;
+    private LocalDate availableStartDate;
+    private LocalDate availableEndDate;
 
     private double propertyRate;
+
+    private double price;
+
+    private String pictureLocation;
 
 }
