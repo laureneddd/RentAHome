@@ -3,7 +3,6 @@ package com.rentahome.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,15 +23,15 @@ public class MessageController {
     @Autowired 
     ReplyService replyService;
 
-    @GetMapping("/send")
-    public ModelAndView showSendMessageForm() {
-        return new ModelAndView("add_message");
+    @GetMapping("/addmessage")
+    public ModelAndView showAddMessagePage() {
+        return new ModelAndView("message");
     }
 
     @PostMapping("/addmessage")
-    public ModelAndView addMessage(@ModelAttribute Message message) {
+    public ModelAndView addMessage(Message message) {
         messageService.addMessage(message);
-        ModelAndView modelAndView = new ModelAndView("add_message");
+        ModelAndView modelAndView = new ModelAndView("message");
         modelAndView.addObject("messageSuccess", "Message added successfully!");
         return modelAndView;
     }
