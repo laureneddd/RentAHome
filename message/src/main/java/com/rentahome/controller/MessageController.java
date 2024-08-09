@@ -23,6 +23,32 @@ public class MessageController {
     @Autowired 
     ReplyService replyService;
 
+<<<<<<< HEAD
+    @GetMapping("addmessage")
+    public String showMessagePage() {
+        return "message"; 
+    }
+
+    @PostMapping("addmessage")
+    public ModelAndView addMessage(Message message) {
+        messageService.addMessage(message);
+        ModelAndView modelAndView = new ModelAndView("message");
+        // modelAndView.addObject("messageSuccess", "Message added successfully!");
+        return modelAndView;
+    }
+
+    @GetMapping("reservation")
+    public ModelAndView showPropertyPage() {
+        ModelAndView modelAndView = new ModelAndView("owner_reservation");
+        // modelAndView.addObject("attributeName", attributeValue);
+        return modelAndView;
+    }
+
+    @GetMapping("/confirmation")
+    public ModelAndView showConfirmationPage() {
+        ModelAndView modelAndView = new ModelAndView("owner_confirmation");
+        // modelAndView.addObject("attributeName", attributeValue);
+=======
     @GetMapping("/addmessage")
     public ModelAndView showAddMessagePage() {
         return new ModelAndView("message");
@@ -33,6 +59,7 @@ public class MessageController {
         messageService.addMessage(message);
         ModelAndView modelAndView = new ModelAndView("message");
         modelAndView.addObject("messageSuccess", "Message added successfully!");
+>>>>>>> 34968ca227bea55d1da7cac58a253ba848a50dd9
         return modelAndView;
     }
 
