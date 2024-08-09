@@ -43,24 +43,13 @@ public class MessageController {
         return modelAndView;
     }
 
-    @GetMapping("/confirmation")
+    @GetMapping("confirmation")
     public ModelAndView showConfirmationPage() {
         ModelAndView modelAndView = new ModelAndView("owner_confirmation");
         // modelAndView.addObject("attributeName", attributeValue);
-    }
-    
-    @GetMapping("/addmessage")
-    public ModelAndView showAddMessagePage() {
-        return new ModelAndView("message");
-    }
-
-    @PostMapping("/addmessage")
-    public ModelAndView addMessage(Message message) {
-        messageService.addMessage(message);
-        ModelAndView modelAndView = new ModelAndView("message");
-        modelAndView.addObject("messageSuccess", "Message added successfully!");
         return modelAndView;
     }
+
 
     // @GetMapping("/user_messages")
     // public ModelAndView getUserMessages(@RequestParam String userId) {
