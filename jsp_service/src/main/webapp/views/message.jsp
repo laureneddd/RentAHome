@@ -14,9 +14,9 @@
       padding: 0;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* 从 flex-start 开始对齐 */
+      align-items: flex-start; 
       min-height: 100vh;
-      padding-top: 10%; /* 添加 padding-top 以便向上移动 */
+      padding-top: 10%; 
     }
     .container {
       width: 80%;
