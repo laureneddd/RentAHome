@@ -1,8 +1,8 @@
 package com.rentahome.controller;
 
 
-import com.rentahome.dto.FeatureDTO;
 import com.rentahome.dto.PropertyDTO;
+import com.rentahome.dto.PropertyTypeDTO;
 import com.rentahome.dto.ReservationDTO;
 import com.rentahome.dto.UserDTO;
 import com.rentahome.entity.User;
@@ -53,8 +53,6 @@ public class UserController {
 	@GetMapping("/login")
 	public ModelAndView loginPage() {
 		
-		System.out.println("inside signupPage()");
-		
 		return new ModelAndView("login");
 	}
 
@@ -62,23 +60,25 @@ public class UserController {
 	public ModelAndView login(HttpServletRequest request) {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
-		System.out.println(name);
 		ModelAndView modelAndView;
 		UserDTO user = userService.login(name, password);
-		System.out.println(user);
 		if(user != null){
 			HttpSession session = request.getSession();
+			session.setAttribute("loggedInUser", user);
 			if(user.getRole().equals("Owner")){
+
 				List<PropertyDTO> propertyDTOS = propertyService.getOwnerProperty(user.getUserId());
 				List<ReservationDTO> reservationDTOS = reservationService.getOwnerReservation(user.getUserId());
 				modelAndView = new ModelAndView("OwnerDashboard");
-				modelAndView.addObject("ownerId", user.getUserId());
 				modelAndView.addObject("propertyDTOS", propertyDTOS);
 				modelAndView.addObject("reservationDTOS", reservationDTOS);
 			}else {
+				List<PropertyTypeDTO> propertyTypes = propertyService.getPropertyTypes();
 				modelAndView = new ModelAndView("index");
-				session.setAttribute("loggedInUser", user);
 				modelAndView.addObject("searchResult", false);
+				List<PropertyDTO> propertyDTOS = propertyService.getAllProperty();
+				modelAndView.addObject("propertyDTOS", propertyDTOS);
+				modelAndView.addObject("propertyTypeDTOS", propertyTypes);
 			}
 		}
 		else{
@@ -90,7 +90,20 @@ public class UserController {
 	}
 
 
-		@GetMapping("/delete/{userId}")
+	@PostMapping("/owner_dashboard")
+	public ModelAndView owner_dashboard(HttpServletRequest request) {
+		UserDTO userDTO = (UserDTO) request.getSession().getAttribute("loggedInUser");
+		ModelAndView modelAndView;
+		List<PropertyDTO> propertyDTOS = propertyService.getOwnerProperty(userDTO.getUserId());
+		List<ReservationDTO> reservationDTOS = reservationService.getOwnerReservation(userDTO.getUserId());
+		modelAndView = new ModelAndView("OwnerDashboard");
+		modelAndView.addObject("propertyDTOS", propertyDTOS);
+		modelAndView.addObject("reservationDTOS", reservationDTOS);
+		return modelAndView;
+	}
+
+
+	@GetMapping("/delete/{userId}")
 		public ModelAndView deleteUser(@PathVariable int userId) {
 
 			userService.deleteUser(userId);
@@ -105,7 +118,6 @@ public class UserController {
 
 			UserDTO user = userService.findByUserId(userId);
 
-			//userService.updateUser(user);
 
 			ModelAndView modelAndView = new ModelAndView("update_page");
 
@@ -150,20 +162,17 @@ public class UserController {
 			} else {
 				System.out.println("No session found");
 			}
-			
+
+			List<PropertyTypeDTO> propertyTypes = propertyService.getPropertyTypes();
 			ModelAndView modelAndView = new ModelAndView("index");
 			modelAndView.addObject("searchResult", false);
+			List<PropertyDTO> propertyDTOS = propertyService.getAllProperty();
+			modelAndView.addObject("propertyDTOS", propertyDTOS);
+			modelAndView.addObject("propertyTypeDTOS", propertyTypes);
 			
 			return modelAndView;
 		}
 
-		@GetMapping("/booking")// "/" represents the very first page of your application 
-		public ModelAndView bookingPage() {
-			
-			System.out.println("inside bookingPage()");
-			
-			return new ModelAndView("booking");//This String "index" is supposed to be the name of the html/jsp name. Do not expect
-							//"index" as a string to be returned form the server as a plain text...
-		}
+
     
 }
