@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
     private String name;
     private String password;
@@ -27,7 +26,5 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL)
-    private List<OwnerMail> ownerMails = new ArrayList<>();
 
 }

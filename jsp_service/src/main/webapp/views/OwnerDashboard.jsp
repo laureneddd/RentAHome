@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.rentahome.dto.PropertyDTO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.rentahome.dto.UserDTO" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
 <%
     //this is scriptlet tag and is not part of a response but we use it to process data in java code
     List<PropertyDTO> properties = (List<PropertyDTO>) request.getAttribute("propertyDTOS");
-    Integer ownerId = (Integer) request.getAttribute("ownerId") ;
+    UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
     String updateMessage = (String) request.getAttribute("updateMsg");
     if(properties == null){
         properties = new ArrayList<>();
@@ -36,20 +37,18 @@
 
                     <li><a href="#" class="nav-link link-dark"> <svg
                             class="bi me-2" width="16" height="16">
-                        <use xlink:href="#speedometer2" /></svg> Email
-                    </a></li>
-                    <li><a href="#" class="nav-link link-dark"> <svg
-                            class="bi me-2" width="16" height="16">
                         <use xlink:href="#table" /></svg> Message
                     </a></li>
+                    <% if(loggedInUser.getRole().equals("Owner")){%>
                     <li><a href="#" class="nav-link link-dark"> <svg
                             class="bi me-2" width="16" height="16">
-                        <use xlink:href="#people-circle" /></svg> Category
+                        <use xlink:href="#speedometer2" /></svg> Email
                     </a></li>
-                    <li><a href="/addProperty/<%=ownerId%>" class="nav-link link-dark"> <svg
+                    <li><a href="/addProperty/<%=loggedInUser.getUserId()%>" class="nav-link link-dark"> <svg
                             class="bi me-2" width="16" height="16">
                     </svg> New Property
                     </a></li>
+                    <%}%>
                 </ul>
             </div>
 

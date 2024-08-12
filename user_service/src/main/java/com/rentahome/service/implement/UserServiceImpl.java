@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.rentahome.entity.User;
 import com.rentahome.repository.UserRepository;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,14 +20,23 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	Converter converter;
 
+	@Autowired
+	RestTemplate restTemplate;
+
+	private static final String RESERVATION_SERVICE = "http://localhost:8081";
+
 	@Override
 	public void addUser(UserDTO userDTO) {
-		userRepository.save(converter.coverToEntity(userDTO));
+		User user = converter.coverToEntity(userDTO);
+		userRepository.save(user);
+		userDTO.setUserId(user.getUserId());
+		restTemplate.postForEntity(RESERVATION_SERVICE+"/users/addUser", userDTO, String.class);
 	}
 	@Override
 	public void deleteUser(int userId) {
 		User user = userRepository.findByUserId(userId);
 		userRepository.delete(user);
+		restTemplate.delete(RESERVATION_SERVICE+"/users/deleteUser/{userId}", userId);
 	}
 
 	@Override
@@ -46,6 +56,7 @@ public class UserServiceImpl implements UserService {
 		userRepository.saveAndFlush(existingUser);
 		//entityManager.clear(); // Clear the persistence context
 	}
+	restTemplate.put(RESERVATION_SERVICE+"/users/updateUser/", userDTO);
 		
 	}
 

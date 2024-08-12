@@ -3,6 +3,8 @@
 
 <%@ page import="com.rentahome.dto.PropertyDTO" %>
 <%@ page import="com.rentahome.dto.FeatureDTO" %>
+<%@ page import="com.rentahome.dto.PropertyTypeDTO" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,7 @@
 
 <%
     PropertyDTO property = (PropertyDTO) request.getAttribute("property");
+    List<PropertyTypeDTO> propertyTypeDTOList = (List<PropertyTypeDTO>) request.getAttribute("propertyTypes");
 
 %>
 
@@ -47,17 +50,17 @@
         <div class="form-group col-12">
             <label for="address" class="form-label">Address</label>
             <input type="text" class="form-control"
-                   id="address" placeholder="New property address" name="address" value="<%=property.getAddress()%>">
+                   id="address" placeholder="New property address" name="address" value="<%=property.getAddress()%>" required>
         </div>
         <div class="form-group   col-6">
             <label for="price" class="form-label">Property price</label>
             <input type="number" class="form-control"
-                   id="price" placeholder="Input your price here" name="price" value="<%=property.getPrice()%>">
+                   id="price" placeholder="Input your price here" name="price" value="<%=property.getPrice()%>" required>
         </div>
             <div class="form-group   col-6">
                 <label for="picture" class="form-label">Picture Location</label>
                 <input type="text" class="form-control"
-                       id="picture" placeholder="Picture location" name="picture" value="<%=property.getPictureLocation()%>">
+                       id="picture" placeholder="Picture location" name="picture" value="<%=property.getPictureLocation()%>" required>
             </div>
 
 
@@ -65,20 +68,20 @@
             <label for="availableStartDate" class="form-label">Available start date</label>
             <input type="date" class="form-control"
                                        id="availableStartDate"
-                                       placeholder="Available start date" name="availableStartDate" value="<%= property.getAvailableStartDate() %>">
+                                       placeholder="Available start date" name="availableStartDate" value="<%= property.getAvailableStartDate() %>" required>
         </div>
         <div class="form-group col-sm-6">
             <label for="availableEndDate" class="form-label">Available end date</label>
             <input type="date" class="form-control"
                    id="availableEndDate"
-                   placeholder="Available end date" name="availableEndDate" value="<%= property.getAvailableEndDate() %>">
+                   placeholder="Available end date" name="availableEndDate" value="<%= property.getAvailableEndDate() %>" required>
         </div>
         <div class="form-group mb-3">
             <label for="exampleFormControlSelect1">Property Type</label>
             <select class="form-control" id="exampleFormControlSelect1" name="propertyType">
-                <option value="Flat" <%if(property.getPropertyType().equals("Flat")){%>selected<%}%>>Flat</option>
-                <option value="Villas" <%if(property.getPropertyType().equals("Villas")){%>selected<%}%>>Villas</option>
-                <option value="Apartment"<%if(property.getPropertyType().equals("Apartments")){%>selected<%}%>>Apartments</option>
+                <%for(PropertyTypeDTO propertyTypeDTO: propertyTypeDTOList){%>
+                <option value="<%=propertyTypeDTO.getPropertyTypeName()%>" <%if(property.getPropertyType().equals(propertyTypeDTO.getPropertyTypeName())){%>selected<%}%>><%=propertyTypeDTO.getPropertyTypeName()%></option>
+                <%}%>
             </select>
         </div>
         <div class="form-group">

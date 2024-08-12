@@ -22,31 +22,35 @@
 
             <div class="mx-auto d-none d-lg-flex" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <% if(loggedInUser != null){
+                        if(loggedInUser.getRole().equals("Owner")){%>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/owner_dashboard">Properties</a>
                     </li>
+                    <%}%>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link active" href="/reservation_dashboard">Reservations</a>
                     </li>
+                    <%}%>
                 </ul>
             </div>
             <div class="ml-auto" >
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Add your property</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    <%
+                        if (loggedInUser != null) {
+                    %>
+                    <!-- If user is logged in -->
+                    <li class="nav-item"><a class="nav-link" href="update_page/<%= loggedInUser.getUserId() %>">Update Account</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">LogOut</a></li>
+                    <%
+                    } else {
+                    %>
+                    <!-- If user is not logged in -->
+                    <li class="nav-item"><a class="nav-link" href="signup_page">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+                    <%
+                        }
+                    %>
                 </ul>
             </div>
 

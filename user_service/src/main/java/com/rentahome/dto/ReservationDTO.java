@@ -23,5 +23,4 @@ public class ReservationDTO {
 
     private String status;
 
-    private OwnerMailDTO ownerMailDTO;
 }

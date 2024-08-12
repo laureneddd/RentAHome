@@ -1,7 +1,5 @@
 package com.rentahome.controller;
 
-import com.rentahome.dto.OwnerMailDTO;
-import com.rentahome.dto.PropertyDTO;
 import com.rentahome.dto.ReservationDTO;
 import com.rentahome.service.Converter;
 import com.rentahome.service.ReservationService;
@@ -31,19 +29,20 @@ public class ReservationController {
         reservationService.confirm(reservationId);
     }
 
-    @PostMapping("/addReservation")
+    @PostMapping("/reserveProperty")
     public void addReservation(@RequestBody ReservationDTO dto) {
-        reservationService.addReservation(converter.convertToEntity(dto));
+        reservationService.reserveProperty(dto);
     }
 
-    @PostMapping("/addOwnerMail")
-    public void addOwnerMail(@RequestBody OwnerMailDTO dto) {
-        reservationService.addOwnerMail(converter.convertToEntity(dto));
-    }
 
     @GetMapping("/getOwnerReservation/{ownerId}")
     public ResponseEntity<List<ReservationDTO>> getOwnerReservation(@PathVariable Integer ownerId) {
         List<ReservationDTO> reservationDTOS = reservationService.getOwnerReservation(ownerId);
+        return ResponseEntity.ok(reservationDTOS);
+    }
+    @GetMapping("/getOtherReservation/{userId}")
+    public ResponseEntity<List<ReservationDTO>> getOtherReservation(@PathVariable Integer userId) {
+        List<ReservationDTO> reservationDTOS = reservationService.getOtherReservation(userId);
         return ResponseEntity.ok(reservationDTOS);
     }
 }

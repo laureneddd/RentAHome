@@ -18,6 +18,5 @@ public class UserDTO {
     private String role;
     private List<PropertyDTO> properties = new ArrayList<>();
     private List<ReservationDTO> reservations = new ArrayList<>();
-    private List<OwnerMailDTO> ownerMails = new ArrayList<>();
 
 }

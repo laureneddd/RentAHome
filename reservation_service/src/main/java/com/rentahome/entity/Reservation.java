@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,14 +25,9 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    private LocalDate startDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private LocalDate endDate;
 
     private String status;
-
-    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
-    private OwnerMail ownerMail;
 }

@@ -1,3 +1,6 @@
+<%@ page import="com.rentahome.dto.PropertyDTO" %>
+<%@ page import="com.rentahome.dto.FeatureDTO" %>
+<%@ page import="com.rentahome.dto.UserDTO" %>
 <!doctype html>
 <html lang="en">
 
@@ -21,58 +24,66 @@
 </head>
 
 <body>
+
+<%
+    PropertyDTO propertyDTO = (PropertyDTO) request.getAttribute("propertyDTO");
+    UserDTO userDTO = (UserDTO) session.getAttribute("loggedInUser");
+    session.setAttribute("propertyDTO", propertyDTO);
+
+%>
+<jsp:include page="header.jsp"></jsp:include>
     <!-- topbar -->
-    <section class="topbar bg-dark py-2 border-bottom border-dark">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <p class="mb-0 text-white">
-                    Directly contact us for reservation: <a href="tel:1234567890"
-                        class="text-white text-decoration-none">1234567890</a>
-                </p>
-                <p class="mb-0">
-                    <a href="#" class="text-decoration-none text-white">ENG</a> |
-                    <a href="#" class="text-decoration-none text-white">PHP</a>
-                </p>
-            </div>
-        </div>
-    </section>
+<%--    <section class="topbar bg-dark py-2 border-bottom border-dark">--%>
+<%--        <div class="container">--%>
+<%--            <div class="d-flex justify-content-between align-items-center">--%>
+<%--                <p class="mb-0 text-white">--%>
+<%--                    Directly contact us for reservation: <a href="tel:1234567890"--%>
+<%--                        class="text-white text-decoration-none">1234567890</a>--%>
+<%--                </p>--%>
+<%--                <p class="mb-0">--%>
+<%--                    <a href="#" class="text-decoration-none text-white">ENG</a> |--%>
+<%--                    <a href="#" class="text-decoration-none text-white">PHP</a>--%>
+<%--                </p>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </section>--%>
     <!-- topbar -->
 
-    <!-- header -->
-    <section class="header">
-        <nav class="navbar navbar-expand-lg bg-transparent">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="img/logo.jpg" class="img-fluid logo" alt="">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item ms-4">
-                            <a class="nav-link text-dark" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item ms-4">
-                            <a class="nav-link text-dark" href="about.html">About Us</a>
-                        </li>
-                        <li class="nav-item ms-4">
-                            <a class="nav-link text-dark" href="rooms.html">Our Rooms</a>
-                        </li>
-                        <li class="nav-item ms-4">
-                            <a class="nav-link text-dark active" href="reservation.html">Reservation</a>
-                        </li>
-                        <li class="nav-item ms-4">
-                            <a class="nav-link text-dark" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </section>
-    <!-- header -->
+<%--    <!-- header -->--%>
+<%--    <section class="header">--%>
+<%--        <nav class="navbar navbar-expand-lg bg-transparent">--%>
+<%--            <div class="container">--%>
+<%--                <a class="navbar-brand" href="index.html">--%>
+<%--                    <img src="img/logo.jpg" class="img-fluid logo" alt="">--%>
+<%--                </a>--%>
+<%--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"--%>
+<%--                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"--%>
+<%--                    aria-expanded="false" aria-label="Toggle navigation">--%>
+<%--                    <span class="navbar-toggler-icon"></span>--%>
+<%--                </button>--%>
+<%--                <div class="collapse navbar-collapse" id="navbarSupportedContent">--%>
+<%--                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">--%>
+<%--                        <li class="nav-item ms-4">--%>
+<%--                            <a class="nav-link text-dark" href="index.html">Home</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item ms-4">--%>
+<%--                            <a class="nav-link text-dark" href="about.html">About Us</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item ms-4">--%>
+<%--                            <a class="nav-link text-dark" href="rooms.html">Our Rooms</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item ms-4">--%>
+<%--                            <a class="nav-link text-dark active" href="reservation.html">Reservation</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item ms-4">--%>
+<%--                            <a class="nav-link text-dark" href="contact.html">Contact</a>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </nav>--%>
+<%--    </section>--%>
+<%--    <!-- header -->--%>
 
 
 
@@ -82,20 +93,21 @@
             <div class="row">
                 <div class="col-md-6 p-4">
                     <div class="card border-0">
-                        <img src="img/hotel-2.jpg" class="card-img-top" alt="Room Image">
+                        <img src="${pageContext.request.contextPath}<%=propertyDTO.getPictureLocation()%>" class="card-img-top" alt="Room Image">
                         <div class="card-body px-0">
-                            <h2 class="card-title ls-3">Deluxe Room</h2>
-                            <p class="card-text mb-0">Max Guests: 2</p>
-                            <p class="card-text mb-0">Room Size: 400 sq ft</p>
-                            <p class="card-text mb-0">Price: $200.00/night</p>
+                            <h2 class="card-title ls-3"><%=propertyDTO.getAddress()%></h2>
+                            <p class="card-text mb-0">Features: <%for(FeatureDTO feature : propertyDTO.getFeatures()){%>
+                                <%=feature.getFeatureName()%>
+                                <%}%></p>
+                            <p class="card-text mb-0">Price: $2<%=propertyDTO.getPrice()%>/night</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 p-4">
-                    <form action="confirm.html">
+                    <form action="/reservationConfirm" method="post">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name">
+                            <input type="text" class="form-control" id="name" placeholder="<%=userDTO.getName()%>">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
@@ -109,13 +121,13 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="checkin" class="form-label">Check-in Date</label>
-                                    <input type="date" class="form-control" id="checkin">
+                                    <input type="date" class="form-control" id="checkin" name="checkin" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="checkout" class="form-label">Check-out Date</label>
-                                    <input type="date" class="form-control" id="checkout">
+                                    <input type="date" class="form-control" id="checkout" name="checkout" required>
                                 </div>
                             </div>
                         </div>

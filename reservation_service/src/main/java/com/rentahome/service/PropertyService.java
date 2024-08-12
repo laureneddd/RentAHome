@@ -3,6 +3,7 @@ package com.rentahome.service;
 import com.rentahome.dto.PropertyDTO;
 import com.rentahome.entity.Property;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PropertyService {
@@ -12,5 +13,6 @@ public interface PropertyService {
     void updateProperty(PropertyDTO property);
     void addProperty(PropertyDTO property);
     List<PropertyDTO> searchWithAddress(String address);
-    List<Property> getAllProperties();
+    List<PropertyDTO> getAllProperties();
+    List<PropertyDTO> searchAvailableProperty(String address, LocalDate checkInDate, LocalDate checkOutDate);
 }

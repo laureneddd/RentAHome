@@ -1,10 +1,8 @@
 package com.rentahome.service.implement;
 
 import com.rentahome.dto.ReservationDTO;
-import com.rentahome.entity.OwnerMail;
 import com.rentahome.entity.Property;
 import com.rentahome.entity.Reservation;
-import com.rentahome.repository.OwnerMailRepository;
 import com.rentahome.repository.PropertyRepository;
 import com.rentahome.repository.ReservationRepository;
 import com.rentahome.service.Converter;
@@ -22,14 +20,16 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Autowired
-    private OwnerMailRepository ownerMailRepository;
-
-    @Autowired
     private PropertyRepository propertyRepository;
 
     @Autowired
     Converter converter;
 
+    @Override
+    public void reserveProperty(ReservationDTO dto){
+        Reservation reservation = converter.convertToEntity(dto);
+        reservationRepository.save(reservation);
+    }
    @Override
    public List<ReservationDTO> getOwnerReservation(Integer ownerId){
        List<Property> properties = propertyRepository.findByUserId(ownerId);
@@ -41,6 +41,13 @@ public class ReservationServiceImpl implements ReservationService {
        if(reservations.isEmpty()){
            return new ArrayList<>();
        }
+       return reservations.stream().map(converter::convertToDto).collect(Collectors.toList());
+   }
+
+   @Override
+   public List<ReservationDTO> getOtherReservation(Integer userId){
+
+       List<Reservation> reservations  = reservationRepository.findByUser_UserId(userId);
        return reservations.stream().map(converter::convertToDto).collect(Collectors.toList());
    }
 
@@ -56,10 +63,6 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void addReservation(Reservation reservation){
         reservationRepository.save(reservation);
-    }
-    @Override
-    public void addOwnerMail(OwnerMail ownerMail){
-        ownerMailRepository.save(ownerMail);
     }
 
 }

@@ -12,6 +12,7 @@ import com.rentahome.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -94,13 +95,22 @@ public class PropertyServiceImpl implements PropertyService {
         propertyRepository.save(property);
     }
     @Override
-    public List<Property> getAllProperties(){
-        return propertyRepository.findAll();
+    public List<PropertyDTO> getAllProperties(){
+        return propertyRepository.findAll().stream().map(converter::convertToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<PropertyDTO> searchWithAddress(String address){
         return propertyRepository.findByAddressContaining(address).stream().map(converter::convertToDto).collect(Collectors.toList());
-
+    }
+    @Override
+    public List<PropertyDTO> searchAvailableProperty(String address, LocalDate checkInDate, LocalDate checkOutDate){
+        return propertyRepository.findByAddressContaining(address)
+                .stream()
+                .filter(property -> {
+                    return property.getAvailableStartDate().isBefore(checkInDate)
+                            &&property.getAvailableEndDate().isAfter(checkOutDate);})
+                .map(converter::convertToDto)
+                .collect(Collectors.toList());
     }
 }

@@ -3,6 +3,8 @@
 
 <%@ page import="com.rentahome.dto.PropertyDTO" %>
 <%@ page import="com.rentahome.dto.FeatureDTO" %>
+<%@ page import="com.rentahome.dto.PropertyTypeDTO" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +29,7 @@
 
 <%
     Integer ownerId = (Integer) request.getAttribute("ownerId");
+    List<PropertyTypeDTO> propertyTypeDTOList = (List<PropertyTypeDTO>) request.getAttribute("propertyTypes");
 %>
 
 <div class="container">
@@ -45,17 +48,17 @@
             <div class="form-group col-12">
                 <label for="address" class="form-label">Address</label>
                 <input type="text" class="form-control"
-                       id="address" placeholder="New property address" name="address" value="">
+                       id="address" placeholder="New property address" name="address" value="" required>
             </div>
             <div class="form-group   col-6">
                 <label for="price" class="form-label">Property price</label>
                 <input type="number" class="form-control"
-                       id="price" placeholder="Input your price here" name="price" value="">
+                       id="price" placeholder="Input your price here" name="price" value="" required>
             </div>
             <div class="form-group   col-6">
                 <label for="picture" class="form-label">Picture location</label>
                 <input type="text" class="form-control"
-                       id="picture" placeholder="Picture location" name="picture" value="">
+                       id="picture" placeholder="Picture location" name="picture" value="" required>
             </div>
 
 
@@ -63,20 +66,20 @@
                 <label for="availableStartDate" class="form-label">Available start date</label>
                 <input type="date" class="form-control"
                        id="availableStartDate"
-                       placeholder="Available start date" name="availableStartDate" value="">
+                       placeholder="Available start date" name="availableStartDate" value="" required>
             </div>
             <div class="form-group col-sm-6">
                 <label for="availableEndDate" class="form-label">Available end date</label>
                 <input type="date" class="form-control"
                        id="availableEndDate"
-                       placeholder="Available end date" name="availableEndDate" value="">
+                       placeholder="Available end date" name="availableEndDate" value="" required>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlSelect1">Property Type</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="propertyType">
-                    <option value="Flat" >Flat</option>
-                    <option value="Villas" >Villas</option>
-                    <option value="Apartment">Apartments</option>
+                    <%for(PropertyTypeDTO propertyTypeDTO: propertyTypeDTOList){%>
+                    <option value="<%=propertyTypeDTO.getPropertyTypeName()%>"><%=propertyTypeDTO.getPropertyTypeName()%></option>
+                    <%}%>
                 </select>
             </div>
             <div class="form-group">

@@ -1,7 +1,9 @@
 package com.rentahome.service;
 
 import com.rentahome.dto.PropertyDTO;
+import com.rentahome.dto.PropertyTypeDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PropertyService {
@@ -11,4 +13,7 @@ public interface PropertyService {
     void updateProperty(PropertyDTO property);
     void deleteProperty(Integer propertyId);
     void addProperty(PropertyDTO property);
+    List<PropertyTypeDTO> getPropertyTypes();
+    List<PropertyDTO> searchAvailableProperty(String address, LocalDate checkInDate,LocalDate checkOutDate, String category);
+    List<PropertyDTO> getAllProperty();
 }
