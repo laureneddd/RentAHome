@@ -1,7 +1,10 @@
 package com.rentahome.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.antlr.v4.runtime.misc.NotNull;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,12 +38,12 @@ public class Message {
     private String receiverId;
 
     @Column(nullable = false, length = 300)
-    private String Content;
+    private String content;
 
     @Temporal(TemporalType.DATE)
     private Date time;
 
-    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
-    private List<Reply> replies;
+//    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
+//    private List<Reply> replies = new ArrayList<>();
 
 }

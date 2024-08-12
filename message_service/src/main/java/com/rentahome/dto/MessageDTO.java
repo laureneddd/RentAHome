@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class MessageDTO {
-
+    
     private int messageId;
     private String senderId;
     private String receiverId;
     private String content;
     private Date time;
 
-    private List<ReplyDTO> replies = new ArrayList<>();
-
+    private List<ReplyDTO> replies = new ArrayList<>(); 
+    
 }

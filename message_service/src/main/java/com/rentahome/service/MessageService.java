@@ -12,5 +12,6 @@ public interface MessageService{
 
     public List<MessageDTO> findAllMessages();
 
+    public MessageDTO findMessageById(int messageId);
 
 }

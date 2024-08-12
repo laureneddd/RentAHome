@@ -2,15 +2,15 @@ package com.rentahome.service;
 
 import java.util.List;
 
-import com.rentahome.dto.ReplyDTO;
+import com.rentahome.entity.Reply;
 
 public interface ReplyService {
 
-//
-//    public ReplyDTO addReply(ReplyDTO reply);
-//
-//    public List<ReplyDTO> findAllReplies();
-//
-//    public List<ReplyDTO> findByMessageId(int messageId);
 
+    public Reply addReply(Reply reply);
+
+    public List<Reply> findAllReplies();
+
+    public List<Reply> findByMessageId(int messageId);
+    
 }
